@@ -46,7 +46,7 @@ class App extends React.Component {
           </div>
         </header>
         <main>
-          <Calendar />
+        <Provider store= {store} ><Calendar /></Provider>
         </main>
       </div>
     );

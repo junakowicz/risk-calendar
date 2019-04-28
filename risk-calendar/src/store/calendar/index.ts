@@ -2,6 +2,9 @@ import { Reducer } from 'redux';
 import { CalendarState, CalendarActionsTypes } from './types';
 
 export const INITIAL_STATE: CalendarState = {
+    currentMonth: new Date(),
+    selectedDate: new Date(),
+
     currentDate: {
         time: 0,
         day: {
@@ -15,18 +18,18 @@ export const INITIAL_STATE: CalendarState = {
         year: 0
     },
 
-    selectedDate: {
-        time: 0,
-        day: {
-            index: 0,
-            name: ''
-        },
-        month: {
-            index: 0,
-            name: ''
-        },
-        year: 0
-    },
+    // selectedDate: {
+    //     time: 0,
+    //     day: {
+    //         index: 0,
+    //         name: ''
+    //     },
+    //     month: {
+    //         index: 0,
+    //         name: ''
+    //     },
+    //     year: 0
+    // },
     reminders: []
 }
 
@@ -45,6 +48,13 @@ const reducer: Reducer<CalendarState> = (state: CalendarState = INITIAL_STATE, a
             return {
                 ...state,
                 selectedDate: action.payload
+            }
+        case CalendarActionsTypes.SET_MONTH:
+
+
+            return {
+                ...state,
+                currentMonth: action.payload
             }
 
 
