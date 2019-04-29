@@ -23,12 +23,16 @@ export interface DateInfo {
 
 }
 
+export interface Reminder {
+    date: Date
+    description: string
+}
+
 export interface CalendarState {
 
     readonly currentMonth: Date
     readonly selectedDate: Date
-    readonly currentDate: DateInfo
     readonly remindersModalVisible: boolean
 
-    readonly reminders: DateInfo[]
+    readonly reminders: Reminder[]
 }

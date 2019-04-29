@@ -6,18 +6,18 @@ export const INITIAL_STATE: CalendarState = {
     selectedDate: new Date(),
     remindersModalVisible: false,
 
-    currentDate: {
-        time: 0,
-        day: {
-            index: 0,
-            name: ''
-        },
-        month: {
-            index: 0,
-            name: ''
-        },
-        year: 0
-    },
+    // currentDate: {
+    //     time: 0,
+    //     day: {
+    //         index: 0,
+    //         name: ''
+    //     },
+    //     month: {
+    //         index: 0,
+    //         name: ''
+    //     },
+    //     year: 0
+    // },
 
     // selectedDate: {
     //     time: 0,
@@ -62,6 +62,17 @@ const reducer: Reducer<CalendarState> = (state: CalendarState = INITIAL_STATE, a
             return {
                 ...state,
                 remindersModalVisible: false
+            }
+        case CalendarActionsTypes.ADD_REMINDER:
+
+        let reminders = [...state.reminders]
+        reminders.push(action.payload)
+
+        console.log('reddddd', reminders);
+        
+            return {
+                ...state,
+                reminders
             }
 
 

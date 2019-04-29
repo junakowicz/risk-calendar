@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store/index';
-import { CalendarState, DateInfo } from '../store/calendar/types';
+import { CalendarState, DateInfo, Reminder } from '../store/calendar/types';
 import { bindActionCreators, Dispatch } from 'redux';
 import * as CalendarActions from '../store/calendar/actions'
 import Modal from "./modal";
 import DaysHeader from "./daysHeader";
 import DaysCells from "./daysCells";
 import MonthsHeader from "./monthsHeader";
+import ReminderCreator from "./reminderCreator";
 
 interface StateProps {
     calendar: CalendarState
@@ -21,6 +22,7 @@ interface DispatchProps {
     setMonth(month: Date): void
     closeRemindersModal(): void
     openRemindersModal(): void
+    addReminder(r: Reminder): void
 }
 interface OwnProps {
 }
@@ -34,6 +36,11 @@ class Calendar extends React.Component<Props> {
         this.props.openRemindersModal()
     };
 
+handleAddReminder = (r: Reminder)=>{
+console.log('addrem', r, this.props.addReminder)
+    this.props.addReminder(r)
+}
+
     render() {
         return (
             <>
@@ -46,7 +53,11 @@ class Calendar extends React.Component<Props> {
                         onDateClick={this.onDateClick} />
                 </div>
                 {this.props.remindersModalVisible &&
-                    <Modal closeModal={this.props.closeRemindersModal} />}
+                    <Modal closeModal={this.props.closeRemindersModal} >
+                    <ReminderCreator addReminder= {this.handleAddReminder}
+                    selectedDate={this.props.selectedDate}/>
+                    </Modal>
+                    }
             </>
         );
     }
