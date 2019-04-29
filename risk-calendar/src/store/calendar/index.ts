@@ -4,6 +4,7 @@ import { CalendarState, CalendarActionsTypes } from './types';
 export const INITIAL_STATE: CalendarState = {
     currentMonth: new Date(),
     selectedDate: new Date(),
+    remindersModalVisible: false,
 
     currentDate: {
         time: 0,
@@ -43,18 +44,24 @@ const reducer: Reducer<CalendarState> = (state: CalendarState = INITIAL_STATE, a
                 reminders: state.reminders.filter((reminder) => reminder !== action.payload)
             }
         case CalendarActionsTypes.SELECT_DATE:
-
-
             return {
                 ...state,
                 selectedDate: action.payload
             }
         case CalendarActionsTypes.SET_MONTH:
-
-
             return {
                 ...state,
                 currentMonth: action.payload
+            }
+        case CalendarActionsTypes.OPEN_REMINDERS_MODAL:
+            return {
+                ...state,
+                remindersModalVisible: true
+            }
+        case CalendarActionsTypes.CLOSE_REMINDERS_MODAL:
+            return {
+                ...state,
+                remindersModalVisible: false
             }
 
 
