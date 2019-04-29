@@ -43,22 +43,22 @@ class Modal extends React.Component<Props> {
         const modalStyle = {
           backgroundColor: '#fff',
           borderRadius: 5,
-          maxWidth: 500,
+          maxWidth: 600,
           minHeight: 300,
           margin: '0 auto',
           padding: 30
+        };
+        const closeIcon = {
+
+          fontSize:'1.5rem',
+float: 'right' as 'right'
         };
     
         return (
           <div className="backdrop" style={backdropStyle}>
             <div className="modal" style={modalStyle}>
+            <div onClick={this.props.closeModal} style={closeIcon} className="icon">highlight_off</div>
               {this.props.children}
-    
-              <div className="footer">
-                <button onClick={this.props.closeModal}>
-                  Close
-                </button>
-              </div>
             </div>
           </div>
         );

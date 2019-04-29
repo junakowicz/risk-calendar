@@ -24,6 +24,7 @@ export interface DateInfo {
 }
 
 export interface Reminder {
+    id: string
     date: Date
     description: string
 }

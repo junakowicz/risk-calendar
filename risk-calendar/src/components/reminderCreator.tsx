@@ -8,6 +8,8 @@ import * as CalendarActions from '../store/calendar/actions'
 import { getCurrentDate } from '../utils/calendarHelper';
 import { selectDate, setMonth } from '../store/calendar/actions';
 import { JSXElement } from "@babel/types";
+import ReminderList from "./reminders/reminderList";
+import uuid from "uuid";
 
 //TODO make it reausable, pass props from parent 
 
@@ -21,6 +23,7 @@ interface DispatchProps {
 interface OwnProps {
   addReminder(reminder: Reminder):void
   selectedDate: Date
+  reminders: Reminder[]
 }
 
 type Props = StateProps & DispatchProps & OwnProps
@@ -54,7 +57,7 @@ class ReminderCreator extends React.Component<Props, any> {
       let upH = dateFns.setHours(reminderDate,this.state.hour)
       let upMin = dateFns.setMinutes(upH, this.state.minute)
 
-      this.props.addReminder({date: upMin, description: this.state.reminderDescription})
+      this.props.addReminder({id: uuid(), date: upMin, description: this.state.reminderDescription})
       event.preventDefault();
     }
   
@@ -73,6 +76,7 @@ class ReminderCreator extends React.Component<Props, any> {
     }
     render() {
       return (
+        <>
         <form onSubmit={this.handleSubmit}>
           <label>
             Hour:
@@ -92,8 +96,10 @@ class ReminderCreator extends React.Component<Props, any> {
             value={this.state.reminderDescription}
             onChange={this.handleDescChange} />
         </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Add" />
         </form>
+        <ReminderList reminders= {this.props.reminders}/>
+        </>
       );
     }
   }

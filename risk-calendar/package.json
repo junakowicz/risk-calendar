@@ -8,6 +8,7 @@
     "@types/react": "16.8.14",
     "@types/react-dom": "16.8.4",
     "@types/react-redux": "^7.0.8",
+    "@types/uuid": "^3.4.4",
     "date-fns": "^1.30.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
@@ -20,7 +21,8 @@
     "redux": "^4.0.1",
     "reselect": "^4.0.0",
     "typesafe-actions": "^4.1.2",
-    "typescript": "3.4.5"
+    "typescript": "3.4.5",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -9,12 +9,14 @@ import DaysHeader from "./daysHeader";
 import DaysCells from "./daysCells";
 import MonthsHeader from "./monthsHeader";
 import ReminderCreator from "./reminderCreator";
+import dateFns from 'date-fns';
 
 interface StateProps {
     calendar: CalendarState
     selectedDate: Date,
     currentMonth: Date,
     remindersModalVisible: boolean,
+    reminders: Reminder[]
 }
 
 interface DispatchProps {
@@ -36,10 +38,10 @@ class Calendar extends React.Component<Props> {
         this.props.openRemindersModal()
     };
 
-handleAddReminder = (r: Reminder)=>{
-console.log('addrem', r, this.props.addReminder)
-    this.props.addReminder(r)
-}
+    handleAddReminder = (r: Reminder) => {
+        console.log('addrem', r, this.props.addReminder)
+        this.props.addReminder(r)
+    }
 
     render() {
         return (
@@ -54,10 +56,13 @@ console.log('addrem', r, this.props.addReminder)
                 </div>
                 {this.props.remindersModalVisible &&
                     <Modal closeModal={this.props.closeRemindersModal} >
-                    <ReminderCreator addReminder= {this.handleAddReminder}
-                    selectedDate={this.props.selectedDate}/>
+                    <h1>{dateFns.format(this.props.selectedDate,"D MMMM ")}</h1>
+                        <ReminderCreator 
+                            addReminder={this.handleAddReminder}
+                            selectedDate={this.props.selectedDate} 
+                            reminders = {this.props.reminders}/>
                     </Modal>
-                    }
+                }
             </>
         );
     }
@@ -67,6 +72,7 @@ const mapStateToProps = (state: ApplicationState) => ({
     calendar: state.calendar,
     selectedDate: state.calendar.selectedDate,
     currentMonth: state.calendar.currentMonth,
+    reminders: state.calendar.reminders,
     remindersModalVisible: state.calendar.remindersModalVisible
 
 })
