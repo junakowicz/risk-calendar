@@ -22,8 +22,10 @@ interface DispatchProps {
 }
 interface OwnProps {
   addReminder(reminder: Reminder):void
+  removeReminder(id:string):void
   selectedDate: Date
   reminders: Reminder[]
+
 }
 
 type Props = StateProps & DispatchProps & OwnProps
@@ -98,7 +100,7 @@ class ReminderCreator extends React.Component<Props, any> {
         </label>
           <input type="submit" value="Add" />
         </form>
-        <ReminderList reminders= {this.props.reminders}/>
+        <ReminderList removeReminder={this.props.removeReminder} reminders= {this.props.reminders}/>
         </>
       );
     }

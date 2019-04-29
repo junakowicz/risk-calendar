@@ -11,21 +11,27 @@ interface DispatchProps {
 
 }
 interface OwnProps {
+    removeReminder(id:string):void
     reminder: Reminder
 }
 
 type Props = StateProps & DispatchProps & OwnProps
 
 class ReminderCell extends React.Component<Props> {
+
+    removeHandler =(id: string)=>{
+this.props.removeReminder(id)
+
+    }
+
     render() {
         const reminderTime = dateFns.format(this.props.reminder.date, 'HH:mm')
         const desc = this.props.reminder.description
         const id = this.props.reminder.id
 
-        // return (<div>{reminderTime} | {desc}<span onClick= {this.props.removeReminder(id)}>X</span></div>
         return (
-        <div className= "Reminder">{reminderTime} | {desc}
-        <span className="icon">highlight_off</span></div>
+            <div>{reminderTime} | {desc}
+            <span onClick= {()=>this.removeHandler(id)} className="icon">highlight_off</span></div>
         )
     }
 

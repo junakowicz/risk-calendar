@@ -10,6 +10,7 @@ import DaysCells from "./daysCells";
 import MonthsHeader from "./monthsHeader";
 import ReminderCreator from "./reminderCreator";
 import dateFns from 'date-fns';
+import { removeReminder } from '../store/calendar/actions';
 
 interface StateProps {
     calendar: CalendarState
@@ -25,6 +26,7 @@ interface DispatchProps {
     closeRemindersModal(): void
     openRemindersModal(): void
     addReminder(r: Reminder): void
+    removeReminder(id: string): void
 }
 interface OwnProps {
 }
@@ -41,6 +43,9 @@ class Calendar extends React.Component<Props> {
     handleAddReminder = (r: Reminder) => {
         console.log('addrem', r, this.props.addReminder)
         this.props.addReminder(r)
+    }
+    handleRemoveReminder = (id: string) => {
+        this.props.removeReminder(id)
     }
 
     render() {
@@ -59,6 +64,7 @@ class Calendar extends React.Component<Props> {
                     <h1>{dateFns.format(this.props.selectedDate,"D MMMM ")}</h1>
                         <ReminderCreator 
                             addReminder={this.handleAddReminder}
+                            removeReminder= {this.handleRemoveReminder}
                             selectedDate={this.props.selectedDate} 
                             reminders = {this.props.reminders}/>
                     </Modal>
