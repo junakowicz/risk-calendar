@@ -11,6 +11,7 @@ import MonthsHeader from "./monthsHeader";
 import ReminderCreator from "./reminderCreator";
 import dateFns from 'date-fns';
 import { removeReminder } from '../store/calendar/actions';
+import { getRemindersForDay } from '../utils/calendarHelper';
 
 interface StateProps {
     calendar: CalendarState
@@ -57,7 +58,8 @@ class Calendar extends React.Component<Props> {
                     <DaysCells
                         currentMonth={this.props.currentMonth}
                         selectedDate={this.props.selectedDate}
-                        onDateClick={this.onDateClick} />
+                        onDateClick={this.onDateClick} 
+                        reminders={this.props.reminders}/>
                 </div>
                 {this.props.remindersModalVisible &&
                     <Modal closeModal={this.props.closeRemindersModal} >
@@ -66,7 +68,7 @@ class Calendar extends React.Component<Props> {
                             addReminder={this.handleAddReminder}
                             removeReminder= {this.handleRemoveReminder}
                             selectedDate={this.props.selectedDate} 
-                            reminders = {this.props.reminders}/>
+                            reminders = {getRemindersForDay(this.props.reminders, this.props.selectedDate)}/>
                     </Modal>
                 }
             </>

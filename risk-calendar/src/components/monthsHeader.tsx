@@ -1,12 +1,6 @@
 import React from "react";
 import dateFns from "date-fns";
-import { connect } from 'react-redux';
-import { ApplicationState } from '../store/index';
-import { CalendarState, DateInfo } from '../store/calendar/types';
-import { bindActionCreators, Dispatch } from 'redux';
-import * as CalendarActions from '../store/calendar/actions'
-import { getCurrentDate } from '../utils/calendarHelper';
-import { selectDate, setMonth } from '../store/calendar/actions';
+
 
 //TODO make it reausable, pass props from parent 
 

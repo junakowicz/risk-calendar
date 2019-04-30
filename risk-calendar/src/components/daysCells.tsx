@@ -1,5 +1,8 @@
 import React from "react";
 import dateFns from "date-fns";
+import { Reminder } from '../store/calendar/types';
+import { getRemindersForDay } from '../utils/calendarHelper';
+import ReminderList from "./reminders/reminderList";
 
 interface StateProps {
   
@@ -11,6 +14,7 @@ interface DispatchProps {
 interface OwnProps {
     currentMonth: Date
     selectedDate: Date
+    reminders: Reminder[]
     onDateClick(day: Date): void
 
 }
@@ -21,6 +25,8 @@ class DaysCells extends React.Component<Props> {
 
     render() {
       const { currentMonth, selectedDate } = this.props;
+
+
       const monthStart = dateFns.startOfMonth(currentMonth);
       const monthEnd = dateFns.endOfMonth(monthStart);
       const startDate = dateFns.startOfWeek(monthStart);
@@ -32,23 +38,30 @@ class DaysCells extends React.Component<Props> {
       let days = [];
       let day = startDate;
       let formattedDate = "";
+
   
       while (day <= endDate) {
         for (let i = 0; i < 7; i++) {
           formattedDate = dateFns.format(day, dateFormat);
           const cloneDay = day;
+          const isSameMonth = dateFns.isSameMonth(day, monthStart)
+          const isSameDay = dateFns.isSameDay(day, selectedDate)
+          const remindersForDay = getRemindersForDay(this.props.reminders, day)
+
+          console.log ('remindersForDa', remindersForDay)
           days.push(
             <div
               className={`col cell ${
-                !dateFns.isSameMonth(day, monthStart)
+                !isSameMonth
                   ? "disabled"
-                  : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
+                  : isSameDay ? "selected" : ""
               }`}
               key={day.toString()}
               onClick={() => this.props.onDateClick(dateFns.parse(cloneDay))}
             >
               <span className="number">{formattedDate}</span>
               <span className="bg">{formattedDate}</span>
+              <ReminderList reminders= {remindersForDay} removeReminder={()=>null} />
             </div>
           );
           day = dateFns.addDays(day, 1);

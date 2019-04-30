@@ -1,13 +1,7 @@
 import React from "react";
 import dateFns from "date-fns";
-import { connect } from 'react-redux';
-import { ApplicationState } from '../store/index';
-import { CalendarState, DateInfo, Reminder } from '../store/calendar/types';
-import { bindActionCreators, Dispatch } from 'redux';
-import * as CalendarActions from '../store/calendar/actions'
-import { getCurrentDate } from '../utils/calendarHelper';
-import { selectDate, setMonth } from '../store/calendar/actions';
-import { JSXElement } from "@babel/types";
+import {  Reminder } from '../store/calendar/types';
+
 import ReminderList from "./reminders/reminderList";
 import uuid from "uuid";
 
