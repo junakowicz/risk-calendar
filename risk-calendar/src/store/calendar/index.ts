@@ -1,43 +1,14 @@
 import { Reducer } from 'redux';
 import { CalendarState, CalendarActionsTypes, Reminder } from './types';
-import { removeReminder } from './actions';
 
 export const INITIAL_STATE: CalendarState = {
     currentMonth: new Date(),
     selectedDate: new Date(),
     remindersModalVisible: false,
-
-    // currentDate: {
-    //     time: 0,
-    //     day: {
-    //         index: 0,
-    //         name: ''
-    //     },
-    //     month: {
-    //         index: 0,
-    //         name: ''
-    //     },
-    //     year: 0
-    // },
-
-    // selectedDate: {
-    //     time: 0,
-    //     day: {
-    //         index: 0,
-    //         name: ''
-    //     },
-    //     month: {
-    //         index: 0,
-    //         name: ''
-    //     },
-    //     year: 0
-    // },
     reminders: []
 }
 
 const reducer: Reducer<CalendarState> = (state: CalendarState = INITIAL_STATE, action) => {
-    console.log('AC ', action)
-
     switch (action.type) {
         case CalendarActionsTypes.SELECT_DATE:
             return {
@@ -65,17 +36,13 @@ const reducer: Reducer<CalendarState> = (state: CalendarState = INITIAL_STATE, a
                 reminders: state.reminders.filter((r: Reminder) => r.id !== action.payload)
             }
         case CalendarActionsTypes.ADD_REMINDER:
-
             let reminders = [...state.reminders]
             reminders.push(action.payload)
-
-            console.log('reddddd', reminders);
 
             return {
                 ...state,
                 reminders
             }
-
 
         default:
             return state

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../store/index';
-import { CalendarState, DateInfo, Reminder } from '../store/calendar/types';
+import { CalendarState, Reminder } from '../store/calendar/types';
 import { bindActionCreators, Dispatch } from 'redux';
 import * as CalendarActions from '../store/calendar/actions'
 import Modal from "./modal";
@@ -10,7 +10,6 @@ import DaysCells from "./daysCells";
 import MonthsHeader from "./monthsHeader";
 import ReminderCreator from "./reminderCreator";
 import dateFns from 'date-fns';
-import { removeReminder } from '../store/calendar/actions';
 import { getRemindersForDay } from '../utils/calendarHelper';
 
 interface StateProps {
@@ -50,25 +49,28 @@ class Calendar extends React.Component<Props> {
     }
 
     render() {
+        const {currentMonth, selectedDate, reminders, setMonth, remindersModalVisible, closeRemindersModal } = this.props
+
+
         return (
             <>
                 <div className="calendar">
-                    <MonthsHeader currentMonth={this.props.currentMonth} setMonth={this.props.setMonth} />
-                    <DaysHeader currentMonth={this.props.currentMonth} />
+                    <MonthsHeader currentMonth={currentMonth} setMonth={setMonth} />
+                    <DaysHeader currentMonth={currentMonth} />
                     <DaysCells
-                        currentMonth={this.props.currentMonth}
-                        selectedDate={this.props.selectedDate}
-                        onDateClick={this.onDateClick} 
-                        reminders={this.props.reminders}/>
+                        currentMonth={currentMonth}
+                        selectedDate={selectedDate}
+                        onDateClick={this.onDateClick}
+                        reminders={reminders} />
                 </div>
-                {this.props.remindersModalVisible &&
-                    <Modal closeModal={this.props.closeRemindersModal} >
-                    <h1>{dateFns.format(this.props.selectedDate,"D MMMM ")}</h1>
-                        <ReminderCreator 
+                {remindersModalVisible &&
+                    <Modal closeModal={closeRemindersModal} >
+                        <h1>{dateFns.format(selectedDate, "D MMMM ")}</h1>
+                        <ReminderCreator
                             addReminder={this.handleAddReminder}
-                            removeReminder= {this.handleRemoveReminder}
-                            selectedDate={this.props.selectedDate} 
-                            reminders = {getRemindersForDay(this.props.reminders, this.props.selectedDate)}/>
+                            removeReminder={this.handleRemoveReminder}
+                            selectedDate={selectedDate}
+                            reminders={getRemindersForDay(reminders, selectedDate)} />
                     </Modal>
                 }
             </>

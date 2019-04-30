@@ -1,5 +1,5 @@
 import { action } from 'typesafe-actions';
-import { CalendarActionsTypes , DateInfo, Reminder} from './types';
+import { CalendarActionsTypes ,Reminder} from './types';
 
 export const selectDate = (dateToSelect : Date) => action(CalendarActionsTypes.SELECT_DATE, dateToSelect)
 export const setMonth = (month : Date) => action(CalendarActionsTypes.SET_MONTH, month)

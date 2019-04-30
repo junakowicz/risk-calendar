@@ -14,15 +14,6 @@ export interface DateEntity {
     name: string
 }
 
-export interface DateInfo {
-
-    time: number
-    day: DateEntity
-    month: DateEntity
-    year: number
-
-}
-
 export interface Reminder {
     id: string
     date: Date

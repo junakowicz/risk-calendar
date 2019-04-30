@@ -1,6 +1,5 @@
 import { Reminder } from '../store/calendar/types';
 import { getRemindersForDay } from './calendarHelper';
-import dateFns from 'date-fns';
 
 const date1 = new Date(2019, 8, 1, 11, 30)
 const date11 = new Date(2019, 8, 1, 12, 30)
@@ -42,8 +41,6 @@ describe('geting reminders for given day', function () {
         expect(result).toEqual(expected);
     })
     it('returns sorted for specific day', function () {
-        console.log(unsortedSingleDayReminders);
-
         const result = getRemindersForDay(unsortedSingleDayReminders, date1)
 
         const expected = [{

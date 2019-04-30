@@ -7,5 +7,5 @@ export const getRemindersForDay = (reminders: Reminder[], day: Date) => {
         const isSameMonth = dateFns.isSameMonth(day, date)
         const isSameDay = dateFns.isSameDay(day, date)
         return isSameDay && isSameMonth
-    }).sort((a:Reminder,b:Reminder)=>dateFns.compareAsc(a.date,b.date))
+    }).sort((a: Reminder, b: Reminder) => dateFns.compareAsc(a.date, b.date))
 }
